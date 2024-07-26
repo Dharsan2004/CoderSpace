@@ -1,0 +1,37 @@
+<% if admin? %>
+  <%= render 'shared/navbarAdmin' %>
+<% else %>
+  <%= render 'shared/navbar', object: @user %>
+<% end %>
+
+<%= render 'shared/flash_messages' %>
+
+<div class="container mt-5">
+  <div class="text-center mb-4">
+    <h1 class="display-4 font-weight-bold">Users</h1>
+  </div>
+
+  <div class="row justify-content-center">
+    <% @users.each do |user| %>
+      <% next if user.is_admin? %>  
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <div class="text-center mb-3">
+              <%= image_tag user.profile_image, size: "100x100", class: "rounded-circle mb-3" if user.profile_image.attached? %>
+              <h5 class="card-title mb-0"><%= user.name %></h5>
+            </div>
+            <div class="text-center">
+              <%= link_to "Visit Profile", profile_path(user), method: :get, class: "btn btn-primary mr-2" %>
+              <%= link_to "Edit", edit_profile_path(user), class: "btn btn-secondary mr-2" %>
+              <%= link_to "Delete", profile_path(user), method: :delete, data: {
+                turbo_method: :delete,
+                turbo_confirm: "Are you sure?"
+              }, class: "btn btn-danger" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

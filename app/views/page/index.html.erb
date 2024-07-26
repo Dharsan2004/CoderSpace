@@ -1,0 +1,52 @@
+<% if admin? %>
+  <%= render 'shared/navbarAdmin' %>
+<% else %>
+  <%= render 'shared/navbar', object: @user %>
+<% end %>
+
+<%= render 'shared/flash_messages' %>
+
+<div class="container mt-5">
+  <div class="text-center mb-4">
+    <h1 class="display-4 font-weight-bold">Welcome to SolverSpace</h1>
+    <p class="lead">Solve coding problems, improve your skills in data structures and algorithms!</p>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-6 text-center">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2 class="card-title">Start Solving!</h2>
+          <p class="card-text">Choose a coding problem from the list below and start solving.</p>
+          <%= link_to "View Problems", problem_index_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center mb-4">
+    <h2 class="font-weight-bold">Improve Your Skills</h2>
+    <p class="lead">Practice coding with our curated list of problems.</p>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-4 text-center">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h3 class="card-title">Data Structures</h3>
+          <p class="card-text">Explore a variety of data structures like arrays, linked lists, trees, and more.</p>
+          <%= image_tag "data_structures.png", class: "img-fluid rounded mb-3 equal-size", alt: "Data Structures" %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 text-center">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h3 class="card-title">Algorithms</h3>
+          <p class="card-text">Learn and implement algorithms like sorting, searching, graph algorithms, and more.</p>
+          <%= image_tag "algo.png", class: "img-fluid rounded mb-3 equal-size", alt: "Algorithms" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<% if admin? %>
+    <%= render 'shared/navbarAdmin' %>
+<% else %>
+    <%= render 'shared/navbar', object: @user %>
+<% end %>
+
+<%= render 'shared/flash_messages' %>
+
+<% easy_count = @user.coding_problems.where(difficulty: :easy).count %>
+<% medium_count = @user.coding_problems.where(difficulty: :medium).count %>
+<% hard_count = @user.coding_problems.where(difficulty: :hard).count %>
+
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-body">
+      <h3 class="card-title text-center"><%= @user.name %></h3>
+      <div class="row">
+        <div class="col-md-4 text-center">
+          <%= image_tag @user.profile_image, size: "150x150", class: "rounded-circle" if @user.profile_image.attached? %>
+        </div>
+        <div class="col-md-8">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>Email:</strong> <%= @user.email %></li>
+            <li class="list-group-item"><strong>College:</strong> <%= @user.college %></li>
+            <li class="list-group-item"><strong>LinkedIn:</strong> <%= link_to @user.linkedin_link, @user.linkedin_link, target: "_blank" %></li>
+            <!-- Add difficulty statistics -->
+            <li class="list-group-item">
+              <strong>Easy Problems:</strong> <%= easy_count %>
+              <span class="badge badge-success">Easy</span>
+            </li>
+            <li class="list-group-item">
+              <strong>Medium Problems:</strong> <%= medium_count %>
+              <span class="badge badge-warning">Medium</span>
+            </li>
+            <li class="list-group-item">
+              <strong>Hard Problems:</strong> <%= hard_count %>
+              <span class="badge badge-danger">Hard</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <% if admin? || session[:user_id] == @user.id %>
+        <div class="text-center mt-4">
+          <%= link_to  'Edit', edit_profile_path(@user) , method: :get, class: "btn btn-secondary" %>
+          <% if admin? %>
+            <%= link_to 'Delete', profile_path(@user) , method: :delete, data: { confirm: "Are you sure?" },data: {
+                      turbo_method: :delete,
+                      turbo_confirm: "Are you sure?"
+                    }, class: "btn btn-danger" %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+  

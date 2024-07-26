@@ -1,0 +1,52 @@
+<% if admin? %>
+    <%= render 'shared/navbarAdmin'%>
+<% else %>
+    <%= render 'shared/navbar' , object: @user %>
+<% end %>
+
+
+<%= render 'shared/flash_messages' %>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title text-center"><%= @coding_problem.problem_name %></h3>
+          <p><strong>Problem Statement:</strong></p>
+          <p><%= simple_format(@coding_problem.problem_statement) %></p>
+          <p><strong>Sample Input:</strong></p>
+          <p>  <%= simple_format(@coding_problem.sample_input) %></p>
+          <p><strong>Sample Output:</strong></p>
+          <p> <%= simple_format(@coding_problem.sample_output) %></p>
+          <p><strong>Difficulty:</strong> <%= @coding_problem.difficulty.humanize %></p>
+          <p><strong>Topic:</strong> <%= @coding_problem.topic %></p>
+          
+        <% solved_coding_problem_ids = current_user.solved_problems.pluck(:coding_problem_id) %>
+        <p><strong>Solved Status:</strong> <%= solved_coding_problem_ids.include?(@coding_problem.id) ? "Solved ✅" : "Not Solved ❌" %></p>
+ 
+
+
+
+        <%if admin?%>
+          <%= link_to "Edit", edit_problem_path(@coding_problem), class: "btn btn-secondary" %>
+          <%= link_to "Delete", problem_path(@coding_problem), method: :delete, data: {
+                  turbo_method: :delete,
+                  turbo_confirm: "Are you sure?"
+                }, class: "btn btn-danger" %>
+        <%end%>
+        </div>
+
+        <%= form_with url: submit_problem_path, method: :post, local: true, html: { multipart: true }, class: "form-signin" do |form| %>
+          <div class="form-group">
+            <%= form.label :code_file %>
+            <%= form.file_field :code_file, class: "form-control-file", required: true %>
+            <%= form.hidden_field :coding_problem_id, value: @coding_problem.id %>
+            <%= form.submit "Submit", class: "btn btn-lg btn-primary btn-block" %>
+          </div>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>

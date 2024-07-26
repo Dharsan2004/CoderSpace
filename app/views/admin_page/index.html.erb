@@ -1,0 +1,39 @@
+<%= render 'shared/navbarAdmin' %>
+
+<%= render 'shared/flash_messages' %>
+
+<div class="container mt-5 text-center">
+  <div class="mb-4">
+    <h1 class="display-4 font-weight-bold">Welcome Admin!</h1>
+    <p class="lead">Manage users, add new coding problems, and keep the platform running smoothly.</p>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2 class="card-title">Manage Users</h2>
+          <p class="card-text">View and manage all users registered on the platform.</p>
+          <%= link_to "View Users", users_admin_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-4">
+    <h2 class="font-weight-bold">Add New Problems</h2>
+    <p class="lead">Expand the problem database by adding new coding problems.</p>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h3 class="card-title">Add Problem</h3>
+          <p class="card-text">Create and add a new coding problem to the platform.</p>
+          <%= link_to "Add Problem", new_problem_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

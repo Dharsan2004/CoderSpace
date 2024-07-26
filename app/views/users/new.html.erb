@@ -1,0 +1,57 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="text-center mb-4">
+        <h1 class="display-4 font-weight-bold">Solver Space</h1>
+      </div>
+
+      <%= render 'shared/flash_messages' %>
+
+      <% if @user.errors.any? %>
+        <div class="alert alert-warning" role="alert">
+          <ul>
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title text-center">Sign Up</h3>
+          <%= form_with url: signup_path, method: :post, local: true, html: { multipart: true }, class: "form-signin" do |form| %>
+            <div class="form-group mb-3">
+              <%= form.label :name %>
+              <%= form.text_field :name, class: "form-control", placeholder: "Name", required: true %>
+            </div>
+            <div class="form-group mb-3">
+              <%= form.label :email %>
+              <%= form.email_field :email, class: "form-control", placeholder: "Email", required: true %>
+            </div>
+            <div class="form-group mb-3">
+              <%= form.label :password %>
+              <%= form.password_field :password, class: "form-control", placeholder: "Password", required: true %>
+            </div>
+            <div class="form-group mb-3">
+              <%= form.label :college %>
+              <%= form.text_field :college, class: "form-control", placeholder: "College Name", required: true %>
+            </div>
+            <div class="form-group mb-3">
+              <%= form.label :profile_image %>
+              <%= form.file_field :profile_image, class: "form-control-file", required: true %>
+            </div>
+            <div class="form-group mb-3">
+              <%= form.label :linkedin_link %>
+              <%= form.url_field :linkedin_link, class: "form-control", placeholder: "LinkedIn Profile", required: true %>
+            </div>
+            <%= form.submit "Sign Up", class: "btn btn-primary btn-block" %>
+          <% end %>
+          <div class="text-center mt-3">
+            <%= link_to "Already have an account? Log in here", login_path, class: "btn btn-link" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

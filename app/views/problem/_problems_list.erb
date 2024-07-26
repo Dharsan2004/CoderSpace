@@ -1,0 +1,35 @@
+<div class="row">
+  <% coding_problems.each do |problem| %>
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title"><%= problem.problem_name %></h5>
+          <p class="card-text">
+            <strong>Topic:</strong> <%= problem.topic %><br>
+            <strong>Difficulty:</strong> <span class="badge <%= difficulty_color(problem.difficulty.capitalize) %>"><%= problem.difficulty.capitalize %></span>
+          </p>
+          <p class="card-text">
+            <strong>Solved by:</strong> <%= problem.solved_problems.count %> users <br>
+               <% solved_coding_problem_ids = current_user.solved_problems.pluck(:coding_problem_id) %>
+          <strong>Solved Status:</strong> <%= solved_coding_problem_ids.include?(problem.id) ? "Solved ✅" : "Not Solved ❌" %>
+ 
+          </p>
+
+     
+
+
+          <a href="<%= problem_path(problem) %>" class="btn btn-success">Solve</a>
+
+          <% if admin? %>
+            <%= link_to "Edit", edit_problem_path(problem), class: "btn btn-secondary" %>
+            <%= link_to "Delete", problem_path(problem), method: :delete, data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  }, class: "btn btn-danger" %>
+          <% end %>
+          
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
